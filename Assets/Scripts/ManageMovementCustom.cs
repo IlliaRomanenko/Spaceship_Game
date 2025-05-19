@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class ManageMovement : MonoBehaviour
+public class ManageMovementCustom : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform _ship;
