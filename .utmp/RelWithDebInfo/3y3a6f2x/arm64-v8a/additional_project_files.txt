@@ -1,0 +1,17 @@
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/GAToUnityCallbacks.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/MacroEnd.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/MacroHeaderBegin.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/MacroSourceBegin.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAApplication.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAConfiguration.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGADebug.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAEvents.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAInput.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGASoftKeyboard.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGASoftKeyboardCallbacks.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGATypes.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UGAVersion.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGACallbacks.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGAConfigurationCallbacks.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGAKeyEventCallbacks.h
+/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/UnityToGAMotionEventCallbacks.h
