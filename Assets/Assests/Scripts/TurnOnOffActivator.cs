@@ -90,7 +90,7 @@ public class TurnOnOffActivator : MonoBehaviour
     //  }
     
      Vector3 _rotation = _hand.rotation.eulerAngles;
-     _ship.rotation = Quaternion.Euler(_rotation.x +_rotationSensitivity, _rotation.y +_rotationSensitivity, (_rotation.z -90f) +_rotationSensitivity);
+     _ship.rotation = Quaternion.Euler(_rotation.x +_rotationSensitivity, _rotation.y +_rotationSensitivity, _rotation.z  +_rotationSensitivity);
      //_rig.position = _position.position;
      //_rig.rotation = _position.rotation;
      //Vector3 _camRotation = _hand.rotation.eulerAngles;
