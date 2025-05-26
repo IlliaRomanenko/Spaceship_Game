@@ -710,7 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ceb00e4a6a610844880d8f8b176d6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8527859954836849784, guid: 35d52d418c6cc9440b1ee47d4a657cb2, type: 3}
+  prefab: {fileID: 5846752460949471652, guid: 1859f0c1a6e71d34191d531aeb82a199, type: 3}
   initialSize: 20
 --- !u!114 &2131787268
 MonoBehaviour:
@@ -731,8 +731,8 @@ MonoBehaviour:
   spawnInterval: 1
   moveDirection: {x: 1, y: 0, z: 0}
   uniformScale: 1
-  prefabScaleMin: {x: 1, y: 1, z: 1}
-  prefabScaleMax: {x: 3, y: 3, z: 3}
+  prefabScaleMin: {x: 30, y: 30, z: 30}
+  prefabScaleMax: {x: 70, y: 70, z: 70}
 --- !u!65 &2131787269
 BoxCollider:
   m_ObjectHideFlags: 0
