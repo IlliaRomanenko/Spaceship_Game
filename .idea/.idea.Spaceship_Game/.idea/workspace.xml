@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fb790e7-c311-4bc3-bb39-b1c4db101013" name="Changes" comment="" />
+    <list default="true" id="3fb790e7-c311-4bc3-bb39-b1c4db101013" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Spaceship_Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Spaceship_Game/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -105,7 +107,7 @@
       <workItem from="1747692205436" duration="30000" />
       <workItem from="1747733343437" duration="11874000" />
       <workItem from="1748349743311" duration="6404000" />
-      <workItem from="1748372733737" duration="2293000" />
+      <workItem from="1748372733737" duration="3262000" />
     </task>
     <servers />
   </component>

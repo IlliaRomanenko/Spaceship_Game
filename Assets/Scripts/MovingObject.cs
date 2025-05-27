@@ -2,59 +2,63 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
-    public float speed = 2f; // Movement speed
-    public int damageAmount = 10; // Damage dealt on contact
+    public float speed = 2f;            // Movement speed
+    public int damageAmount = 10;       // Damage dealt on contact
 
-    private Vector3 direction; // Direction to move
-    private ObjectPool pool; // Reference to object pool
-    private Bounds triggerBounds; // Movement boundaries
-    private bool isInitialized = false; // Whether this object is active and initialized
-    private Vector3 rotationAxis; // Axis to rotate around
-    private float rotationSpeed; // Speed of rotation in degrees/second
+    private Vector3 direction;          // Movement direction
+    private ObjectPool pool;            // Pool to return to
+    private Bounds triggerBounds;       // Bounds to stay within
+    private Vector3 rotationAxis;       // Rotation axis
+    private float rotationSpeed;        // Rotation speed
 
     /// <summary>
-    /// Initializes the object with movement direction, zone bounds, and object pool reference
+    /// Called when object is spawned from pool
     /// </summary>
     public void Init(Vector3 moveDirection, Bounds zoneBounds, ObjectPool objectPool)
     {
-        direction = moveDirection.normalized; // Normalize to get consistent speed
-        triggerBounds = zoneBounds; // Set area the object is allowed to move in
+        direction = moveDirection.normalized;
+        triggerBounds = zoneBounds;
         pool = objectPool;
-        isInitialized = true;
 
-        // Assign random rotation behavior
-        rotationAxis = Random.onUnitSphere; // Random rotation axis
-        rotationSpeed = Random.Range(30f, 90f); // Rotation speed in degrees per second
+        // Setup random rotation
+        rotationAxis = Random.onUnitSphere;
+        rotationSpeed = Random.Range(30f, 90f);
+
+        enabled = true; // Enable movement and collision
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Try to damage any object with a Health component
-        Health targetHealth = other.gameObject.GetComponent<Health>();
+        if (!enabled) return; // Avoid accidental calls if object is inactive
 
+        // Quick check by component (you can optimize further using tags or layers)
+        Health targetHealth = other.GetComponent<Health>();
         if (targetHealth != null)
         {
-            targetHealth.TakeDamage(damageAmount); // Apply damage
-            pool.Return(gameObject); // Return this object to the pool
-            isInitialized = false; // Mark as inactive
+            targetHealth.TakeDamage(damageAmount);
+            ReturnToPool();
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if (!isInitialized) return; // Skip update if not active
-
-        // Move in the assigned direction
+        // Move and rotate the object
         transform.position += direction * speed * Time.deltaTime;
-
-        // Apply rotation
         transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime, Space.Self);
 
         // Return to pool if out of bounds
         if (!triggerBounds.Contains(transform.position))
         {
-            pool.Return(gameObject);
-            isInitialized = false;
+            ReturnToPool();
         }
+    }
+
+    /// <summary>
+    /// Returns this object to the pool and disables updates
+    /// </summary>
+    private void ReturnToPool()
+    {
+        enabled = false;
+        pool.Return(gameObject);
     }
 }

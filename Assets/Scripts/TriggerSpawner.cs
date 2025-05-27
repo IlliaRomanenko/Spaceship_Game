@@ -1,54 +1,42 @@
 using UnityEngine;
 using System.Collections;
+
 public class TriggerSpawner : MonoBehaviour
 {
-    public ObjectPool pool; // Object pool used to reuse prefabs
-    public BoxCollider triggerZone; // Should have 'Is Trigger' checked
-    public int minSpawn = 1; // Minimum number of objects to spawn each interval
-    public int maxSpawn = 5; // Maximum number of objects to spawn each interval
-    public float spawnInterval = 3f; // Time in seconds between spawns
-    public Vector3 moveDirection = Vector3.right; // Direction in which spawned objects will move
+    [Header("Spawning")]
+    public ObjectPool pool; // Reference to the object pool
+    public BoxCollider triggerZone; // Zone where objects will spawn (must be set as 'Is Trigger')
+    public int minSpawn = 1; // Minimum number of objects per spawn
+    public int maxSpawn = 5; // Maximum number of objects per spawn
+    public float spawnInterval = 3f; // Time between spawn waves
+    public Vector3 moveDirection = Vector3.right; // Direction the objects will move
 
     [Header("Prefab Scale Settings")]
-    public bool uniformScale = true; // Use a single scale value for all axes
-    public Vector3 prefabScaleMin = Vector3.one; // Minimum possible scale
-    public Vector3 prefabScaleMax = Vector3.one * 1.5f; // Maximum possible scale
+    public bool uniformScale = true; // Use the same scale on all axes
+    public Vector3 prefabScaleMin = Vector3.one; // Minimum scale for spawned objects
+    public Vector3 prefabScaleMax = Vector3.one * 1.5f; // Maximum scale for spawned objects
 
-    private Bounds zoneBounds; // The bounds of the spawn area
+    private Bounds zoneBounds; // Calculated bounds of the trigger zone
+    private Coroutine spawnRoutine; // Reference to the spawn coroutine
 
     void Start()
     {
-        // If no trigger zone is assigned, try to get it from the current GameObject
+        // Auto-assign the trigger zone if not manually set
         if (triggerZone == null)
-        {
             triggerZone = GetComponent<BoxCollider>();
-        }
 
         zoneBounds = triggerZone.bounds;
 
-        StartCoroutine(SpawnLoop());
+        // Start the spawning loop
+        spawnRoutine = StartCoroutine(SpawnLoop());
     }
 
-    void SpawnObjects()
-    {
-        int count = Random.Range(minSpawn, maxSpawn + 1); // Random number of objects to spawn
-
-        for (int i = 0; i < count; i++)
-        {
-            GameObject obj = pool.Get(); // Get an object from the pool
-
-            Vector3 spawnPos = GetSpawnPositionOnStartSide(); // Calculate spawn position
-            obj.transform.position = spawnPos;
-
-            // ✅ Apply random scale to the spawned object
-            obj.transform.localScale = GetRandomScale();
-
-            // Initialize the moving object with direction, bounds, and pool reference
-            obj.GetComponent<MovingObject>().Init(moveDirection, zoneBounds, pool);
-        }
-    }
+    /// <summary>
+    /// Main coroutine that handles timed object spawning
+    /// </summary>
     private IEnumerator SpawnLoop()
     {
+        // Infinite loop, can be stopped externally via StopCoroutine
         while (true)
         {
             SpawnObjects();
@@ -56,7 +44,28 @@ public class TriggerSpawner : MonoBehaviour
         }
     }
 
-    // Returns a random scale, either uniform or axis-specific
+    /// <summary>
+    /// Spawns a random number of objects from the pool and initializes them
+    /// </summary>
+    void SpawnObjects()
+    {
+        int count = Random.Range(minSpawn, maxSpawn + 1);
+
+        for (int i = 0; i < count; i++)
+        {
+            GameObject obj = pool.Get();
+            obj.transform.position = GetSpawnPositionOnStartSide();
+            obj.transform.localScale = GetRandomScale();
+
+            MovingObject mover = obj.GetComponent<MovingObject>();
+            if (mover != null)
+                mover.Init(moveDirection, zoneBounds, pool);
+        }
+    }
+
+    /// <summary>
+    /// Returns a scale vector for the spawned object, either uniform or random per axis
+    /// </summary>
     private Vector3 GetRandomScale()
     {
         if (uniformScale)
@@ -75,39 +84,47 @@ public class TriggerSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// Calculates a spawn position on the starting edge of the trigger zone,
-    /// based on the dominant direction of movement.
+    /// Calculates the starting position on the edge of the spawn zone,
+    /// based on the dominant movement axis
     /// </summary>
     private Vector3 GetSpawnPositionOnStartSide()
     {
-        Vector3 center = zoneBounds.center;
-        Vector3 size = zoneBounds.size;
+        Vector3 pos = zoneBounds.center;
 
-        Vector3 pos = center;
-
-        // Determine which axis (X, Y, Z) has the dominant direction
         if (Mathf.Abs(moveDirection.x) > Mathf.Abs(moveDirection.y) && Mathf.Abs(moveDirection.x) > Mathf.Abs(moveDirection.z))
         {
-            // Spawn on the X axis edge
+            // X-axis is dominant
             pos.x = moveDirection.x < 0 ? zoneBounds.max.x : zoneBounds.min.x;
             pos.y = Random.Range(zoneBounds.min.y, zoneBounds.max.y);
             pos.z = Random.Range(zoneBounds.min.z, zoneBounds.max.z);
         }
         else if (Mathf.Abs(moveDirection.y) > Mathf.Abs(moveDirection.z))
         {
-            // Spawn on the Y axis edge
+            // Y-axis is dominant
             pos.y = moveDirection.y < 0 ? zoneBounds.max.y : zoneBounds.min.y;
             pos.x = Random.Range(zoneBounds.min.x, zoneBounds.max.x);
             pos.z = Random.Range(zoneBounds.min.z, zoneBounds.max.z);
         }
         else
         {
-            // Spawn on the Z axis edge
+            // Z-axis is dominant
             pos.z = moveDirection.z < 0 ? zoneBounds.max.z : zoneBounds.min.z;
             pos.x = Random.Range(zoneBounds.min.x, zoneBounds.max.x);
             pos.y = Random.Range(zoneBounds.min.y, zoneBounds.max.y);
         }
 
         return pos;
+    }
+
+    /// <summary>
+    /// Public method to stop the spawner (e.g. on game over or pause)
+    /// </summary>
+    public void StopSpawning()
+    {
+        if (spawnRoutine != null)
+        {
+            StopCoroutine(spawnRoutine);
+            spawnRoutine = null;
+        }
     }
 }
