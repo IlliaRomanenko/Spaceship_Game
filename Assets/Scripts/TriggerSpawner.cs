@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class TriggerSpawner : MonoBehaviour
 {
     public ObjectPool pool; // Object pool used to reuse prefabs
@@ -26,8 +26,7 @@ public class TriggerSpawner : MonoBehaviour
 
         zoneBounds = triggerZone.bounds;
 
-        // Repeatedly call SpawnObjects every spawnInterval seconds
-        InvokeRepeating(nameof(SpawnObjects), 0f, spawnInterval);
+        StartCoroutine(SpawnLoop());
     }
 
     void SpawnObjects()
@@ -46,6 +45,14 @@ public class TriggerSpawner : MonoBehaviour
 
             // Initialize the moving object with direction, bounds, and pool reference
             obj.GetComponent<MovingObject>().Init(moveDirection, zoneBounds, pool);
+        }
+    }
+    private IEnumerator SpawnLoop()
+    {
+        while (true)
+        {
+            SpawnObjects();
+            yield return new WaitForSeconds(spawnInterval);
         }
     }
 
