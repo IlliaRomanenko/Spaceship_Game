@@ -3,12 +3,12 @@ using UnityEngine;
 public class MovingObject : MonoBehaviour
 {
     public float speed = 2f;
+    public int damageAmount = 10;
 
     private Vector3 direction;
     private ObjectPool pool;
     private Bounds triggerBounds;
     private bool isInitialized = false;
-
     private Vector3 rotationAxis;
     private float rotationSpeed;
 
@@ -26,7 +26,21 @@ public class MovingObject : MonoBehaviour
         rotationAxis = Random.onUnitSphere; // случайное направление вращения
         rotationSpeed = Random.Range(30f, 90f); // угол в градусах/сек
     }
+    
 
+    private void OnTriggerEnter(Collider other)
+    {
+
+        Health targetHealth = other.gameObject.GetComponent<Health>();
+
+        if (targetHealth != null)
+        {
+
+            targetHealth.TakeDamage(damageAmount);
+            pool.Return(gameObject);
+            isInitialized = false;
+        }
+    }
     void Update()
     {
         if (!isInitialized) return;
