@@ -2,36 +2,34 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
-    public float speed = 2f;            // Movement speed
-    public int damageAmount = 10;       // Damage dealt on contact
+    public float speed = 2f;
+    public int damageAmount = 10;
 
-    private Vector3 direction;          // Movement direction
-    private ObjectPool pool;            // Pool to return to
-    private Bounds triggerBounds;       // Bounds to stay within
-    private Vector3 rotationAxis;       // Rotation axis
-    private float rotationSpeed;        // Rotation speed
+    private Vector3 direction;
+    private ObjectPool pool;
+    private Bounds triggerBounds;
+    private Vector3 rotationAxis;
+    private float rotationSpeed;
 
-    /// <summary>
-    /// Called when object is spawned from pool
-    /// </summary>
+    private bool initialized = false; // дополнительная защита
+
     public void Init(Vector3 moveDirection, Bounds zoneBounds, ObjectPool objectPool)
     {
         direction = moveDirection.normalized;
         triggerBounds = zoneBounds;
         pool = objectPool;
 
-        // Setup random rotation
         rotationAxis = Random.onUnitSphere;
         rotationSpeed = Random.Range(30f, 90f);
 
-        enabled = true; // Enable movement and collision
+        initialized = true;
+        enabled = true; // включаем Update()
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!enabled) return; // Avoid accidental calls if object is inactive
+        if (!initialized || pool == null) return;
 
-        // Quick check by component (you can optimize further using tags or layers)
         Health targetHealth = other.GetComponent<Health>();
         if (targetHealth != null)
         {
@@ -42,23 +40,25 @@ public class MovingObject : MonoBehaviour
 
     private void Update()
     {
-        // Move and rotate the object
+        if (!initialized || pool == null) return;
+
         transform.position += direction * speed * Time.deltaTime;
         transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime, Space.Self);
 
-        // Return to pool if out of bounds
         if (!triggerBounds.Contains(transform.position))
         {
             ReturnToPool();
         }
     }
 
-    /// <summary>
-    /// Returns this object to the pool and disables updates
-    /// </summary>
     private void ReturnToPool()
     {
+        initialized = false;
         enabled = false;
-        pool.Return(gameObject);
+
+        if (pool != null)
+            pool.Return(gameObject);
+        else
+            Debug.LogWarning($"{name}: Tried to return to null pool.");
     }
 }

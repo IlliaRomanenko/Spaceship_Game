@@ -14,7 +14,7 @@ public class TriggerSpawner : MonoBehaviour
     [Header("Prefab Scale Settings")]
     public bool uniformScale = true; // Use the same scale on all axes
     public Vector3 prefabScaleMin = Vector3.one; // Minimum scale for spawned objects
-    public Vector3 prefabScaleMax = Vector3.one * 1.5f; // Maximum scale for spawned objects
+    public Vector3 prefabScaleMax = Vector3.one ; // Maximum scale for spawned objects
 
     private Bounds zoneBounds; // Calculated bounds of the trigger zone
     private Coroutine spawnRoutine; // Reference to the spawn coroutine
