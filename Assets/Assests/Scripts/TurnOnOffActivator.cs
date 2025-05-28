@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.EventSystems;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class TurnOnOffActivator : MonoBehaviour
@@ -13,8 +14,9 @@ public class TurnOnOffActivator : MonoBehaviour
    //[SerializeField] private GameObject _object;
    [SerializeField] private float _rotationSensitivity = 10f;
    [SerializeField] private float _scaleFactor = 20f;
-  //[SerializeField] private Transform _position;
+   //[SerializeField] private Transform _position;
 
+   public static event Action OnHandInSphere;
    private float _maxDistance;
    private Vector3 _initialHandPosition;
    private Vector3 _initialShipPosition;
@@ -41,7 +43,7 @@ public class TurnOnOffActivator : MonoBehaviour
    private void Update()
    {
       if (_isActivated)
-      { 
+      {
          Navigate();
       }
    }
@@ -54,6 +56,7 @@ public class TurnOnOffActivator : MonoBehaviour
          {
             _isHandInVolume = true;
             _activator.SetActive(true);
+           
             //
          }
       }
@@ -82,6 +85,7 @@ public class TurnOnOffActivator : MonoBehaviour
       {
          _activator.SetActive(true);
           _isActivated = true;
+           OnHandInSphere?.Invoke();
          //_object.SetActive(false);
          _initialHandPosition = _activator.transform.position;
       }
@@ -91,13 +95,20 @@ public class TurnOnOffActivator : MonoBehaviour
 
    private void Navigate()
    {
-     Vector3 _handOffset = _hand.position - _initialHandPosition;
-        Vector3 _newShipPosition =_initialShipPosition + _handOffset*_scaleFactor;
-        if (_handOffset.magnitude <= _maxDistance)
-        {
-            _ship.position = _newShipPosition;
-        }
-       //Vector3 _rotation = _hand.rotation.eulerAngles;
+      Vector3 _handOffset = _hand.position - _initialHandPosition;
+      Vector3 _newShipPosition = _initialShipPosition + _handOffset * _scaleFactor;
+      if (_handOffset.magnitude <= _maxDistance)
+      {
+         _ship.position = _newShipPosition;
+      }
+      Quaternion handRotation = _hand.rotation;
+      Vector3 handEuler = handRotation.eulerAngles;
+      float zRotation = handEuler.z;
+      zRotation *= _rotationSensitivity;
+       Vector3 currentShipEuler = _ship.rotation.eulerAngles;
+        _ship.rotation = Quaternion.Euler(currentShipEuler.x, currentShipEuler.y, zRotation);
+
+
        //_ship.rotation = Quaternion.Euler(_rotation.x+_rotationSensitivity,_rotation.y*_rotationSensitivity, _rotation.z*_rotationSensitivity);
    }
 }
