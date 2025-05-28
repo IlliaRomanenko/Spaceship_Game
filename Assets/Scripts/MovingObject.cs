@@ -46,7 +46,6 @@ public class MovingObject : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;
         transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime, Space.Self);
 
-        // Return to pool if out of bounds
         if (!triggerBounds.Contains(transform.position))
         {
             ReturnToPool();

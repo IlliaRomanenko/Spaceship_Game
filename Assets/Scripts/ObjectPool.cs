@@ -1,6 +1,9 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
+/// <summary>
+/// Generic object pool for reusing GameObjects to reduce instantiation overhead.
+/// </summary>
 public class ObjectPool : MonoBehaviour
 {public GameObject prefab;
     public int initialSize = 10;
@@ -15,6 +18,9 @@ public class ObjectPool : MonoBehaviour
         ExpandPool(initialSize);
     }
 
+    /// <summary>
+    /// Returns an object from the pool. Expands pool if allowed and needed.
+    /// </summary>
     public GameObject Get()
     {
         if (pool.Count == 0)
@@ -40,6 +46,9 @@ public class ObjectPool : MonoBehaviour
         return obj;
     }
 
+    /// <summary>
+    /// Returns the object back into the pool.
+    /// </summary>
     public void Return(GameObject obj)
     {
         if (obj == null) return; // Prevent errors if a null object is returned
