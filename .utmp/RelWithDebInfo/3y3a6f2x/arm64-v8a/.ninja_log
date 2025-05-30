@@ -1,10 +1,10 @@
 # ninja log v5
-1	519	1748379648794779178	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	88d23d778678bfa0
-1	532	1748379648808221348	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	90398f0f14f31596
-0	539	1748379648816649195	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	18b25409b2b1390a
-2	553	1748379648830377242	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	449816fdb4b6cdd
-2	605	1748379648881707450	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	c08d1d790630d925
+858	938	1748379649211658672	/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3y3a6f2x/obj/arm64-v8a/libgame.so	1399f9cf1ecd6fd9
+0	858	1748379649135884722	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	16e7f1b2f918bb17
 0	643	1748379648920417742	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	f36cb2babbbf7e79
 1	765	1748379649041589153	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9588589920e76111
-0	858	1748379649135884722	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	16e7f1b2f918bb17
-858	938	1748379649211658672	/Users/mariia/Documents/UNITY/VRGameDesign/Spaceship_Game/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3y3a6f2x/obj/arm64-v8a/libgame.so	1399f9cf1ecd6fd9
+2	605	1748379648881707450	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	c08d1d790630d925
+2	553	1748379648830377242	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	449816fdb4b6cdd
+0	539	1748379648816649195	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	18b25409b2b1390a
+1	532	1748379648808221348	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	90398f0f14f31596
+1	519	1748379648794779178	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	88d23d778678bfa0

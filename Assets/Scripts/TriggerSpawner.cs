@@ -15,9 +15,16 @@ public class TriggerSpawner : MonoBehaviour
     public bool uniformScale = true; // Use the same scale on all axes
     public Vector3 prefabScaleMin = Vector3.one; // Minimum scale for spawned objects
     public Vector3 prefabScaleMax = Vector3.one ; // Maximum scale for spawned objects
+    [Header("Doughnut Stiings")]
+    public DoughnutPool doughnutPool;
+    public float rareSpawnChance = 0.5f;
+    public float dMinInt = 1f;
+    public float dMaxInt = 5f;
 
+    private float doughnutInterval;
     private Bounds zoneBounds; // Calculated bounds of the trigger zone
     private Coroutine spawnRoutine; // Reference to the spawn coroutine
+    private Coroutine spawnDoughnut;
 
     void Start()
     {
@@ -29,6 +36,7 @@ public class TriggerSpawner : MonoBehaviour
 
         // Start the spawning loop
         spawnRoutine = StartCoroutine(SpawnLoop());
+        spawnDoughnut = StartCoroutine(SpawnDoughnutLoop());
     }
 
     /// <summary>
@@ -63,6 +71,35 @@ public class TriggerSpawner : MonoBehaviour
         }
     }
 
+    private IEnumerator SpawnDoughnutLoop()
+    {
+        doughnutInterval = Random.Range(dMinInt, dMaxInt);
+        WaitForSeconds wait = new WaitForSeconds( doughnutInterval);
+        while (true)
+        {
+            if (Random.value < rareSpawnChance)
+            {
+                SpawnDoughnut();
+            }
+            yield return new WaitForSeconds(doughnutInterval);
+        }
+    }
+
+    void SpawnDoughnut()
+    {
+       
+        GameObject obj = doughnutPool.Get();
+        if (obj == null) return; // Pool exhausted or error logged by pool
+
+        // Special objects have fixed parameters
+        obj.transform.position = GetSpawnPositionOnStartSide(); // Use common direction or a specific one
+        
+
+         DoughnutMove mover = obj.GetComponent<DoughnutMove>();
+            if (mover != null)
+                mover.Init(moveDirection, zoneBounds, doughnutPool);
+
+    }
     /// <summary>
     /// Returns a scale vector for the spawned object, either uniform or random per axis
     /// </summary>
@@ -95,7 +132,7 @@ public class TriggerSpawner : MonoBehaviour
         {
             // X-axis is dominant
             pos.x = moveDirection.x < 0 ? zoneBounds.max.x : zoneBounds.min.x;
-            pos.y = Random.Range(zoneBounds.min.y, zoneBounds.max.y);
+            pos.y = Random.Range(zoneBounds.min.y+0.2f, zoneBounds.max.y-0.2f);
             pos.z = Random.Range(zoneBounds.min.z, zoneBounds.max.z);
         }
         else if (Mathf.Abs(moveDirection.y) > Mathf.Abs(moveDirection.z))
@@ -109,8 +146,8 @@ public class TriggerSpawner : MonoBehaviour
         {
             // Z-axis is dominant
             pos.z = moveDirection.z < 0 ? zoneBounds.max.z : zoneBounds.min.z;
-            pos.x = Random.Range(zoneBounds.min.x, zoneBounds.max.x);
-            pos.y = Random.Range(zoneBounds.min.y, zoneBounds.max.y);
+            pos.x = Random.Range(zoneBounds.min.x+0.2f, zoneBounds.max.x-0.2f);
+            pos.y = Random.Range(zoneBounds.min.y+0.2f, zoneBounds.max.y-0.2f);
         }
 
         return pos;

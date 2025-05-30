@@ -4,12 +4,12 @@ using UnityEngine.EventSystems;
 public class GetPosition : MonoBehaviour
 {
 
-    private Collider collider;
+    private Collider _collider;
 
     public static event Action OnPositionGot;
     private void Awake()
     {
-        collider = GetComponent<Collider>();
+        _collider = GetComponent<Collider>();
 
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created

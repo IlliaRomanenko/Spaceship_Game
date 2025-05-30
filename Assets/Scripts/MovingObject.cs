@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
-    public float speed = 2f;            // Movement speed
+    public float minSpeed = 2f;
+    public float maxSpeed = 15f;          // Movement speed
     public int damageAmount = 10;       // Damage dealt on contact
 
     private Vector3 direction;          // Movement direction
     private ObjectPool pool;            // Pool to return to
     private Bounds triggerBounds;       // Bounds to stay within
     private Vector3 rotationAxis;       // Rotation axis
-    private float rotationSpeed;        // Rotation speed
+    private float rotationSpeed;
+    private float speed;       // Rotation speed
 
     /// <summary>
     /// Called when object is spawned from pool
@@ -43,7 +45,7 @@ public class MovingObject : MonoBehaviour
     private void Update()
     {
         // Move and rotate the object
-        transform.position += direction * speed * Time.deltaTime;
+        transform.position += direction * Random.Range(minSpeed,maxSpeed) * Time.deltaTime;
         transform.Rotate(rotationAxis, rotationSpeed * Time.deltaTime, Space.Self);
 
         if (!triggerBounds.Contains(transform.position))
