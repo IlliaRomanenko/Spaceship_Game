@@ -3,7 +3,6 @@ using UnityEngine;
 public class ResourcePickup : MonoBehaviour
 {
     public float refillAmount = 25f; // Сколько восстанавливает
-
     private void OnTriggerEnter(Collider other)
     {
         Hunger meter = other.GetComponent<Hunger>();
