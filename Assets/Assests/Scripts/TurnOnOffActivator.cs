@@ -17,7 +17,7 @@ public class TurnOnOffActivator : MonoBehaviour
 
    [SerializeField] private GameEvent activate;
    //[SerializeField] private Transform _position;
-
+   [SerializeField] private GameObject _smallSphere;
    public static event Action OnHandInSphere;
    private float _maxDistance;
    private Vector3 _initialHandPosition;
@@ -73,6 +73,7 @@ public class TurnOnOffActivator : MonoBehaviour
          if (_activator != null)
          {
             _isActivated = false;
+            _smallSphere.SetActive(true);
             _activator.SetActive(false);
          }
          _ship.rotation = _initialShipRotation;

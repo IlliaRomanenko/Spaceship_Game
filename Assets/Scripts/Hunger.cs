@@ -8,6 +8,7 @@ public class Hunger : MonoBehaviour
 {
     public Slider hunger;
     public TextMeshProUGUI text;
+    public bool isGameStarted = false;
     [Header("Resource Settings")]
     public float maxValue = 100f;         // Максимальное значение ресурса
     public float currentValue;            // Текущее значение
@@ -21,15 +22,15 @@ public class Hunger : MonoBehaviour
         hunger.maxValue = maxValue;
         currentValue = hunger.minValue;
         hunger.value = currentValue;
-        
+        isGameStarted = false;
     }
 
     void Update()
     {
         if (isDead) return;
-
-        // Плавное уменьшение ресурса
-        currentValue += decreaseRate * Time.deltaTime;
+        if (isGameStarted)
+        {
+             currentValue += decreaseRate * Time.deltaTime;
         hunger.value = currentValue;
         // Ограничение снизу
         if (currentValue >= maxValue)
@@ -37,6 +38,9 @@ public class Hunger : MonoBehaviour
             currentValue = maxValue;
             Die();
         }
+        }
+        // Плавное уменьшение ресурса
+       
     }
 
     /// <summary>

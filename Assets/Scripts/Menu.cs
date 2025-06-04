@@ -12,7 +12,7 @@ public class Menu: MonoBehaviour
     public GameObject UIMenu;
     public GameObject SpawnZone;
     public MeasureDistance distance;
-    
+    public Hunger hunger;
     public TextMeshProUGUI RunText;
     public GameObject Canvas;
     
@@ -60,6 +60,7 @@ public class Menu: MonoBehaviour
 
         RunText.text = "GO!";
         yield return new WaitForSeconds(1f);
+        hunger.isGameStarted = true;
         RunText.text = "";
         distance.isRunStarted = true;
         SpawnZone.SetActive(true);
