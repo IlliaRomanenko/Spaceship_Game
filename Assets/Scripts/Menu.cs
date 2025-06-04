@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Meta.XR.ImmersiveDebugger.UserInterface.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class Menu: MonoBehaviour
     public GameObject SpawnZone;
     
     public TextMeshProUGUI RunText;
+    public GameObject Canvas;
     
     private float seconds = 3.0f;
     
@@ -21,6 +23,7 @@ public class Menu: MonoBehaviour
         Gameplay.SetActive(true);
         UI.SetActive(true);
         UIMenu.SetActive(false);
+        Canvas.SetActive(true);
     }
 
     public void StartRun()

@@ -1,32 +1,51 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
+using Meta.XR.ImmersiveDebugger.UserInterface;
+using TMPro;
 
 public class Health : MonoBehaviour
 {
     // Maximum health points the object starts with
-    public int maxHP = 100;
-
+    //public float maxHP;
+    public Slider health;
+    public TextMeshProUGUI text;
+    private float maxHP = 100f;
     // Tracks the current health during gameplay
-    private int currentHP;
+    private float currentHP;
+
+    private void Awake()
+    {
+        
+    
+    }
 
     // Initialize health when the object is created
     void Start()
     {
+        health.minValue = 0f;
+        health.maxValue = maxHP;
         currentHP = maxHP;
+        health.value = currentHP;
+        
     }
 
+    private void Update()
+    {
+       // text.text = $"{currentHP}"; 
+    }
     // Public method to apply damage to this object
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         Debug.Log("DamageTaken");
 
         // Reduce the current health by the damage amount
         currentHP -= amount;
         Debug.Log($"{gameObject.name} took {amount} damage. Remaining HP: {currentHP}");
-
+        health.value = currentHP;
         // Check if the object has run out of HP
-        if (currentHP <= 0)
+        if (currentHP <= health.minValue)
         {
             Die();
         }

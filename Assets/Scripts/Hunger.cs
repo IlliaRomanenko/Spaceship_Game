@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
+using TMPro;
 
 public class Hunger : MonoBehaviour
 {
+    public Slider hunger;
+    public TextMeshProUGUI text;
     [Header("Resource Settings")]
     public float maxValue = 100f;         // Максимальное значение ресурса
     public float currentValue;            // Текущее значение
@@ -13,7 +17,11 @@ public class Hunger : MonoBehaviour
 
     void Start()
     {
-        currentValue = maxValue;
+        hunger.minValue = 0f;
+        hunger.maxValue = maxValue;
+        currentValue = hunger.minValue;
+        hunger.value = currentValue;
+        
     }
 
     void Update()
@@ -21,12 +29,12 @@ public class Hunger : MonoBehaviour
         if (isDead) return;
 
         // Плавное уменьшение ресурса
-        currentValue -= decreaseRate * Time.deltaTime;
-
+        currentValue += decreaseRate * Time.deltaTime;
+        hunger.value = currentValue;
         // Ограничение снизу
-        if (currentValue <= 0f)
+        if (currentValue >= maxValue)
         {
-            currentValue = 0f;
+            currentValue = maxValue;
             Die();
         }
     }
@@ -38,10 +46,10 @@ public class Hunger : MonoBehaviour
     {
         if (isDead) return;
 
-        currentValue += amount;
-
-        if (currentValue > maxValue)
-            currentValue = maxValue;
+        currentValue -= amount;
+        hunger.value = currentValue;
+        if (currentValue < hunger.minValue)
+            currentValue = hunger.minValue;
     }
 
     /// <summary>
