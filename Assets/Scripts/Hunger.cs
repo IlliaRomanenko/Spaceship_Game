@@ -49,7 +49,7 @@ public class Hunger : MonoBehaviour
     public void Refill(float amount)
     {
         if (isDead) return;
-
+        Debug.Log($"Refilling");
         currentValue -= amount;
         hunger.value = currentValue;
         if (currentValue < hunger.minValue)
@@ -62,7 +62,7 @@ public class Hunger : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        Debug.Log($"{gameObject.name} died due to resource depletion.");
+       
         StartCoroutine(RestartSceneAfterDelay(2f));
     }
 

@@ -22,13 +22,16 @@ public class DoughnutPool : MonoBehaviour
 
     public GameObject Get()
     {
-        if (pool.Count < maxPoolSize)
+        if (pool.Count == 0)
         {
-            ExpandPool(expandNumber);
-        }
-        else
-        {
-            return null;
+            if (allPoolObjects.Count < maxPoolSize)
+            {
+                ExpandPool(expandNumber);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         GameObject obj = pool.Dequeue();
@@ -39,6 +42,7 @@ public class DoughnutPool : MonoBehaviour
         }
         return obj;
     }
+
 
     public void Return(GameObject obj)
     {

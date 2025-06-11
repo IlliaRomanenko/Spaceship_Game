@@ -1,30 +1,30 @@
 using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
+
 public class GetPosition : MonoBehaviour
 {
-
     private Collider _collider;
     private GameObject _smallSphere;
 
     public static event Action OnPositionGot;
+
     private void Awake()
     {
         _collider = GetComponent<Collider>();
-        _smallSphere = GetComponentInChildren<GameObject>();
-
+        _smallSphere = GetComponentInChildren<MeshRenderer>(true)?.gameObject; // безопасное получение
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     private void OnTriggerEnter(Collider other)
     {
+        if (_smallSphere != null)
+            _smallSphere.SetActive(false);
+
         OnPositionGot?.Invoke();
-        _smallSphere.SetActive(false);
-        
-        
-    }
-      private void OnTriggerExit(Collider other)
-    {
-       // transform.gameObject.SetActive(true);
     }
 
+    private void OnDestroy()
+    {
+        // Сбросим событие на null при удалении
+        OnPositionGot = null;
+    }
 }

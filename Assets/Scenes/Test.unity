@@ -1800,6 +1800,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1169040489}
     m_Modifications:
+    - target: {fileID: 3066564013539859893, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
+      propertyPath: text
+      value: 
+      objectReference: {fileID: 1349194292}
+    - target: {fileID: 3066564013539859893, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 2133138693}
     - target: {fileID: 5376501628273953719, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
       propertyPath: m_Name
       value: Example3_Red
@@ -1808,6 +1816,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5376501628273953719, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793598116063902132, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
+      propertyPath: hunger
+      value: 
+      objectReference: {fileID: 904919033}
     - target: {fileID: 8405268230012332890, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.06
@@ -1868,12 +1884,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5376501628273953719, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1111502859}
-    - targetCorrespondingSourceObject: {fileID: 5376501628273953719, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1111502860}
     - targetCorrespondingSourceObject: {fileID: 5376501628273953719, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1111502863}
@@ -2353,25 +2363,10 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5376501628273953719, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
   m_PrefabInstance: {fileID: 862676974}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1111502859
+--- !u!114 &1111502860 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1111502858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a4469bba3a41742b9d0b6f23f2a130, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: {fileID: 2133138693}
-  text: {fileID: 1349194292}
---- !u!114 &1111502860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 6793598116063902132, guid: ded92bffdbffb794aa3304b5cf0497df, type: 3}
+  m_PrefabInstance: {fileID: 862676974}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111502858}
   m_Enabled: 1
@@ -2379,12 +2374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 581205c599dda834fa59cce8081e269f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hunger: {fileID: 904919033}
-  text: {fileID: 0}
-  isGameStarted: 0
-  maxValue: 100
-  currentValue: 0
-  decreaseRate: 5
 --- !u!65 &1111502861
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3956,8 +3945,11 @@ MonoBehaviour:
   prefabScaleMax: {x: 0.02, y: 0.2, z: 0.02}
   doughnutPool: {fileID: 1725258337}
   rareSpawnChance: 0.5
-  dMinInt: 0.2
-  dMaxInt: 0.7
+  dMinInt: 1
+  dMaxInt: 5
+  useDoughnutCustomScale: 0
+  doughnutScaleMin: {x: 1, y: 1, z: 1}
+  doughnutScaleMax: {x: 1, y: 1, z: 1}
 --- !u!65 &1725258333
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4059,7 +4051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59cf43dd63c1448919d1c3e0f6c58604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5614507615007265454, guid: 23b16db6c060542e7a28eb2dce2f8b10, type: 3}
+  prefab: {fileID: 4211828713860219839, guid: b61520d40542d44b892ab9aab5e744c1, type: 3}
   initialSize: 10
   expandNumber: 2
   maxPoolSize: 20

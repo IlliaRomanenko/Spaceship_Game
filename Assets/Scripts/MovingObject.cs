@@ -31,9 +31,10 @@ public class MovingObject : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!enabled) return; // Avoid accidental calls if object is inactive
+        if (!enabled) return;
 
-        // Quick check by component (you can optimize further using tags or layers)
+        if (!other.CompareTag("Player")) return; // ✅ Проверка тега
+
         Health targetHealth = other.GetComponent<Health>();
         if (targetHealth != null)
         {
@@ -41,6 +42,7 @@ public class MovingObject : MonoBehaviour
             ReturnToPool();
         }
     }
+
 
     private void Update()
     {

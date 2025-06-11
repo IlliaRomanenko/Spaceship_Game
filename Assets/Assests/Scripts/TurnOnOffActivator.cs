@@ -1,117 +1,108 @@
 using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
-using UnityEngine.EventSystems;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class TurnOnOffActivator : MonoBehaviour
 {
-   [SerializeField] private GameObject _activator;
-   [SerializeField] private Transform _fingerTip;
-   [SerializeField] private Transform _ship;
-   [SerializeField] private Transform _hand;
-   //[SerializeField] private GameObject _object;
-   [SerializeField] private float _rotationSensitivity = 10f;
-   [SerializeField] private float _scaleFactor = 20f;
+    [SerializeField] private GameObject _activator;
+    [SerializeField] private Transform _fingerTip;
+    [SerializeField] private Transform _ship;
+    [SerializeField] private Transform _hand;
+    [SerializeField] private float _rotationSensitivity = 10f;
+    [SerializeField] private float _scaleFactor = 20f;
+    [SerializeField] private GameEvent activate;
+    [SerializeField] private GameObject _smallSphere;
 
-   [SerializeField] private GameEvent activate;
-   //[SerializeField] private Transform _position;
-   [SerializeField] private GameObject _smallSphere;
-   public static event Action OnHandInSphere;
-   private float _maxDistance;
-   private Vector3 _initialHandPosition;
-   private Vector3 _initialShipPosition;
-   private Quaternion _initialShipRotation;
-   private bool _isHandInVolume = false;
-   private XRGrabInteractable _simpleInteractable;
-   //private IXRInteractor _baseInteractor;
-   private bool _isActivated = false;
-   
-   private void Awake()
-   {
-      _simpleInteractable = GetComponentInChildren<XRGrabInteractable>();
-      //_baseInteractor = _hand.GetComponent<IXRInteractor>();
-      _maxDistance = GetComponent<SphereCollider>().radius;
-      _initialShipPosition = _ship.position;
-      _initialShipRotation = _ship.rotation;
-   }
+    public static event Action OnHandInSphere;
 
-    private void Start()
+    private float _maxDistance;
+    private Vector3 _initialHandPosition;
+    private Vector3 _initialShipPosition;
+    private Quaternion _initialShipRotation;
+    private bool _isHandInVolume = false;
+    private bool _isActivated = false;
+
+    private void Awake()
     {
-      GetPosition.OnPositionGot += Activated;
+        _maxDistance = GetComponent<SphereCollider>().radius;
+        _initialShipPosition = _ship.position;
+        _initialShipRotation = _ship.rotation;
     }
 
-   private void Update()
-   {
-      if (_isActivated)
-      {
-         Navigate();
-      }
-   }
-    
-    void OnTriggerEnter(Collider other)
-   {
-      if (other.transform.IsChildOf(_fingerTip))
-      {
-         if (_activator != null)
-         {
+    private void OnEnable()
+    {
+        GetPosition.OnPositionGot += Activated;
+    }
+
+    private void OnDisable()
+    {
+        GetPosition.OnPositionGot -= Activated;
+    }
+
+    private void Update()
+    {
+        if (_isActivated)
+        {
+            Navigate();
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.IsChildOf(_fingerTip))
+        {
             _isHandInVolume = true;
-            _activator.SetActive(true);
-            activate.Occurred(this.gameObject);
-            //
-         }
-      }
-   }
-   
-   void OnTriggerExit(Collider other)
-   {
-      if (other.transform.IsChildOf(_fingerTip))
-      {
-         _isHandInVolume = false;
-        
-         if (_activator != null)
-         {
+
+            if (_activator != null)
+                _activator.SetActive(true);
+
+            activate.Occurred(gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.IsChildOf(_fingerTip))
+        {
+            _isHandInVolume = false;
             _isActivated = false;
-            _smallSphere.SetActive(true);
-            _activator.SetActive(false);
-         }
-         _ship.rotation = _initialShipRotation;
-         _ship.position = _initialShipPosition;
-      }
-   }
-   
 
-   public void Activated()
-   {
-      if (_isHandInVolume)
-      {
-         _activator.SetActive(true);
-          _isActivated = true;
-           OnHandInSphere?.Invoke();
-         //_object.SetActive(false);
-         _initialHandPosition = _activator.transform.position;
-      }
-        
+            if (_activator != null)
+                _activator.SetActive(false);
 
-   }
+            if (_smallSphere != null)
+                _smallSphere.SetActive(true);
 
-   private void Navigate()
-   {
-      Vector3 _handOffset = _hand.position - _initialHandPosition;
-      Vector3 _newShipPosition = _initialShipPosition + _handOffset * _scaleFactor;
-      if (_handOffset.magnitude <= _maxDistance)
-      {
-         _ship.position = _newShipPosition;
-      }
-      Quaternion handRotation = _hand.rotation;
-      Vector3 handEuler = handRotation.eulerAngles;
-      float zRotation = handEuler.z;
-      zRotation *= _rotationSensitivity;
-       Vector3 currentShipEuler = _ship.rotation.eulerAngles;
-        _ship.rotation = Quaternion.Euler(currentShipEuler.x, currentShipEuler.y, zRotation);
+            _ship.position = _initialShipPosition;
+            _ship.rotation = _initialShipRotation;
+        }
+    }
 
+    public void Activated()
+    {
+        if (!_isHandInVolume) return;
 
-       //_ship.rotation = Quaternion.Euler(_rotation.x+_rotationSensitivity,_rotation.y*_rotationSensitivity, _rotation.z*_rotationSensitivity);
-   }
+        if (_activator != null)
+            _activator.SetActive(true);
+
+        _isActivated = true;
+        _initialHandPosition = _hand.position;
+
+        OnHandInSphere?.Invoke();
+    }
+
+    private void Navigate()
+    {
+        Vector3 handOffset = _hand.position - _initialHandPosition;
+        Vector3 newPosition = _initialShipPosition + handOffset * _scaleFactor;
+
+        if (handOffset.magnitude <= _maxDistance)
+        {
+            _ship.position = newPosition;
+        }
+
+        float zRotation = _hand.rotation.eulerAngles.z * _rotationSensitivity;
+        Vector3 currentEuler = _ship.rotation.eulerAngles;
+        _ship.rotation = Quaternion.Euler(currentEuler.x, currentEuler.y, zRotation);
+    }
 }
