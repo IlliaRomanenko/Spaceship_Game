@@ -6,6 +6,7 @@ using TMPro;
 
 public class Hunger : MonoBehaviour
 {
+    public MeasureDistance _measureDistance;
     public Slider hunger;
     public TextMeshProUGUI text;
     public bool isGameStarted = false;
@@ -62,8 +63,8 @@ public class Hunger : MonoBehaviour
     private void Die()
     {
         isDead = true;
-       
-        StartCoroutine(RestartSceneAfterDelay(2f));
+        _measureDistance.FinishRun();
+        StartCoroutine(RestartSceneAfterDelay(3f));
     }
 
     private IEnumerator RestartSceneAfterDelay(float delay)

@@ -9,6 +9,7 @@ public class Health : MonoBehaviour
 {
     // Maximum health points the object starts with
     //public float maxHP;
+    public MeasureDistance _measureDistance;
     public Slider health;
     public TextMeshProUGUI text;
     private float maxHP = 100f;
@@ -54,10 +55,11 @@ public class Health : MonoBehaviour
     // Handles what happens when HP reaches zero
     private void Die()
     {
+        _measureDistance.FinishRun();
         Debug.Log($"{gameObject.name} has been destroyed.");
 
         // Tell the GameManager to restart the scene after a short delay
-        GameManager.Instance.RestartSceneAfterDelay(2f);
+        GameManager.Instance.RestartSceneAfterDelay(3f);
 
         // Deactivate the object to remove it from the scene (but keep it alive for coroutine to finish)
         gameObject.SetActive(false);

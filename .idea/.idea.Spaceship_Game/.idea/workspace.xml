@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3fb790e7-c311-4bc3-bb39-b1c4db101013" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Spaceship_Game/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Spaceship_Game/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Assests/Doughnut D.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Assests/Doughnut D.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Assests/Scripts/DoughnutMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Assests/Scripts/DoughnutMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Assests/Scripts/DoughnutPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Assests/Scripts/DoughnutPool.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Assests/Scripts/GetPosition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Assests/Scripts/GetPosition.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Assests/Scripts/TurnOnOffActivator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Assests/Scripts/TurnOnOffActivator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HiRezSpaceshipsCreatorFree/Prefabs/Examples/Example3_Red.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HiRezSpaceshipsCreatorFree/Prefabs/Examples/Example3_Red.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HiRezSpaceshipsCreatorFree/SRP/HDRP_Upgrade.unitypackage.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HiRezSpaceshipsCreatorFree/SRP/URP_Materials.unitypackage.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Test.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Test.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hunger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hunger.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MovingObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MovingObject.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TriggerSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TriggerSpawner.cs" afterDir="false" />
-    </list>
+    <list default="true" id="3fb790e7-c311-4bc3-bb39-b1c4db101013" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -125,6 +111,7 @@
       <workItem from="1748963026197" duration="4178000" />
       <workItem from="1748968639179" duration="5404000" />
       <workItem from="1749580085312" duration="15647000" />
+      <workItem from="1749616318757" duration="144000" />
     </task>
     <servers />
   </component>
